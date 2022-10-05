@@ -1,0 +1,87 @@
+---
+title: "Biométrie des oursins violets"
+author: "..."
+date: "..."
+output: html_document
+---
+
+<!--# Ce document peut être associé à un carnet de notes. Un carnet de notes débute toujours pour une brève introduction de quelques lignes qui présente le sujet de ce carnet de notes.-->
+
+# Introduction
+
+<!--% En vous aidant de la page d'aide associé à `urchin_bio`. Présentez en 3 à 4 phrases le sujet de ce carnet de notes.-->
+
+# Analyses 
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+# package
+SciViews::R
+options(data.io_lang = "fr") # Labels en français
+```
+
+
+<!--# Le chunk ci-dessous permet d'importer les données. La fonction read() importe le tableau `urchin_bio` depuis le package `data.io`. Ce tableau est assigné à urchin -->  
+
+```{r importation}
+urchin <- read("urchin_bio", package = "data.io")
+```
+
+<!--% Visualisez les 10 premières lignes de `urchin` -->
+
+```{r visualisation}
+
+```
+
+<!--% Réalisez un nuage de points de la hauteur en fonction de la masse des oursins. Vous avez déjà réalisé ce graphique dans votre script R. --> 
+
+```{r graphe1}
+
+```
+
+<!--% Décrivez le graphique ci-dessus en 5 phrases.-->
+
+
+<!--% Réalisez un nuage de points de la hauteur en fonction de la masse des oursins en utilisant une transformation `log()` pour les 2 variables.-->
+
+```{r graphe2}
+
+```
+
+<!--% Décrivez le graphique ci-dessus en 5 phrases.-->
+
+
+<!--% Réalisez un nuage de points des parties solides en fonction de la masse immergée des oursins en utilisant de la couleur pour l'origine.-->
+
+```{r graphe3}
+
+```
+
+<!--% Décrivez le graphique ci-dessus en 5 phrases.-->
+
+
+<!--% Réalisez un nuage de points de la masse de la lanterne en fonction de la masse du squelette en ajoutant de la couleur pour l'origine et en modifiant la forme des points.-->
+
+```{r graphe4}
+
+```
+
+<!--% Décrivez le graphique ci-dessus en 5 phrases.-->
+
+
+<!--% C'est maintenant à vous de jouer. À partir des `19 variables` du jeu de données `urchin`, réalisez et décrivez deux nouveaux graphiques.-->
+
+```{r graphe5}
+
+```
+
+<!--% Décrivez le graphique ci-dessus en 5 phrases.-->
+
+
+<!--% Réalisez le second graphique inédit. -->
+
+```{r graphe6}
+
+```
+
+<!--% Décrivez le graphique ci-dessus en 5 phrases.-->
