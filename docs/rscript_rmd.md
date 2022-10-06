@@ -1,6 +1,6 @@
-# Comparaison entre un script R et une document R Markdown.
+# Comparaison entre un script R et un document R Markdown.
 
-<!--# Ce fichier a pour extension .md. Il s'agit d'un document Markdown. Il n'est pas conçu pour y exécuter du code comme un R Markdown. Il est suffisant pour rédiguer un document textuelle sans code.-->
+<!--# Ce fichier a pour extension .md. Il s'agit d'un document Markdown. Il n'est pas conçu pour y exécuter du code comme un R Markdown. Il est suffisant pour rédiger un document textuel sans code.-->
 
 <!--%  Présentez entre 3 et  5 éléments qui différencient un script R et un document R Markdown.-->
 
