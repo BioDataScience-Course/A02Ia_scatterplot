@@ -1,0 +1,109 @@
+---
+title: "Biométrie des oursins violets"
+author: "___"
+date: "___"
+format:
+  html:
+    code-fold: true
+    code-tools: true
+    toc: true
+editor: visual
+lang: fr
+---
+
+<!--# Ce document est un carnet de notes. C'est l'équivalent d'un cahier de laboratoire pour vos analyses de données. Vous allez y consigner toutes les analyses que vous avez réalisées et leurs interprétations dans l'ordre de votre progression. Il se différencie des documents de présentation des résultats (rapport, présentation avec dias, article scientifique, ouvrage plus conséquent) par son style bref et informel. Dans les documents de présentation, les résultats les plus pertinents sont choisis alors que le carnet de notes reprends tout ce qui a été fait pour garder une trace du raisonnement complet qui a mené à l'analyse. Un carnet de notes débute toujours pour une brève introduction de quelques lignes qui présente le sujet étudié. -->
+
+## Introduction
+
+<!--% En vous aidant de la page d'aide de `urchin_bio`, présentez en 3 à 4 phrases le sujet de ce carnet de notes. Remplacer …Votre introduction ici… par votre propre texte. -->
+
+...Votre introduction ici...
+
+## Analyses
+
+```{r setup, include=FALSE}
+# Configuration de l'environnement
+SciViews::R(lang = "fr")
+```
+
+<!--# Le chunk ci-dessous permet d'importer les données. La fonction `read()` importe le tableau `urchin_bio` depuis le package {data.io}. Ce tableau est ensuite assigné à `urchin`, ce qui signifie qu'il est désormais accessible sous ce nom. -->
+
+```{r import}
+urchin <- read("urchin_bio", package = "data.io")
+```
+
+<!--% Visualisez les 10 premières lignes de `urchin` -->
+
+```{r head}
+
+```
+
+<!--% Réalisez un nuage de points de la hauteur en fonction de la masse des oursins. Vous avez déjà réalisé ce graphique dans votre script R (c'est le même qui est demandé ici). -->
+
+```{r plot1}
+
+```
+
+<!--% Interprétez le graphique ci-dessus en 3 phrases.-->
+
+<!-- PhG: à remplacer par un select_answer() -->
+
+<!--% Réalisez un nuage de points de la hauteur en fonction de la masse des oursins en utilisant une transformation `log()` pour les deux variables. -->
+
+```{r plot2}
+
+```
+
+<!--% Interprétez le graphique ci-dessus en 3 phrases.-->
+
+<!-- PhG: à remplacer par un select_answer() -->
+
+<!--% Réalisez un nuage de points des parties solides en fonction de la masse immergée des oursins en utilisant de la couleur pour l'origine. -->
+
+```{r plot3}
+
+```
+
+<!--% Interprétez le graphique ci-dessus en 3 phrases.-->
+
+<!-- PhG: à remplacer par un select_answer() -->
+
+<!--% Réalisez un nuage de points de la masse de la lanterne en fonction de la masse du squelette en ajoutant de la couleur pour l'origine et en modifiant la forme des points. -->
+
+```{r plot4}
+
+```
+
+<!--% Interprétez le graphique ci-dessus en 3 phrases.-->
+
+<!-- PhG: à remplacer par un select_answer() -->
+
+<!--% À partir des 19 variables du jeu de données `urchin`, réalisez et interprétez deux nouveaux graphiques. -->
+
+```{r plot5}
+
+```
+
+<!--% Interprétez le graphique ci-dessus en 3 phrases.-->
+
+...Interprétation graphique 1...
+
+<!--% Réalisez le second graphique inédit. -->
+
+```{r plot6}
+
+```
+
+<!--% Interprétez le graphique ci-dessus en 3 phrases.-->
+
+...Interprétation graphique 2...
+
+## Comparaison script R et Quarto
+
+<!--%  Présentez entre 3 et 5 éléments qui différencient un script R et un document Quarto en remplaçant les trois points dans les listes ci-dessous. -->
+
+-   ...
+
+-   ...
+
+-   ...
