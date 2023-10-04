@@ -1,0 +1,185 @@
+# Vérifications de urchin_notebook.qmd
+urchi <- parse_rmd("../../urchin_notebook.qmd",
+  allow_incomplete = TRUE, parse_yaml = TRUE)
+
+test_that("Le bloc-notes est-il compilé en un fichier final HTML ?", {
+  expect_true(is_rendered("urchin_notebook.qmd"))
+  # La version compilée HTML du carnet de notes est introuvable
+  # Vous devez créer un rendu de votre bloc-notes Quarto (bouton 'Rendu')
+  # Vérifiez aussi que ce rendu se réalise sans erreur, sinon, lisez le message
+  # qui s'affiche dans l'onglet 'Travaux' et corrigez ce qui ne va pas dans
+  # votre document avant de réaliser à nouveau un rendu HTML.
+  # IL EST TRES IMPORTANT QUE VOTRE DOCUMENT COMPILE ! C'est tout de même le but
+  # de votre analyse que d'obtenir le document final HTML.
+
+  expect_true(is_rendered_current("urchin_notebook.qmd"))
+  # La version compilée HTML du document Quarto existe, mais elle est ancienne
+  # Vous avez modifié le document Quarto après avoir réalisé le rendu.
+  # La version finale HTML n'est sans doute pas à jour. Recompilez la dernière
+  # version de votre bloc-notes en cliquant sur le bouton 'Rendu' et vérifiez
+  # que la conversion se fait sans erreur. Sinon, corrigez et regénérez le HTML.
+})
+
+test_that("La structure du document est-elle conservée ?", {
+  expect_true(all(c("Introduction et but", "Matériel et méthodes", "Analyses","Description des données", "Comparaison script R et Quarto")
+    %in% (rmd_node_sections(urchi) |> unlist() |> unique())))
+  # Les sections (titres) attendues du document ne sont pas toutes présentes
+  # Ce test échoue si vous avez modifié la structure du document, un ou
+  # plusieurs titres indispensables par rapport aux exercices ont disparu ou ont
+  # été modifié. Vérifiez la structure du document par rapport à la version
+  # d'origine dans le dépôt "template" du document (lien au début du fichier
+  # README.md).
+
+  expect_true(all(c("setup", "import", "headtail", "chart1", "chart1comment",
+    "chart2", "chart2comment", "chart3", "chart3comment", "chart4",
+    "chart4comment", "chart5", "chart5comment")
+    %in% rmd_node_label(urchi)))
+  # Un ou plusieurs labels de chunks nécessaires à l'évaluation manquent
+  # Ce test échoue si vous avez modifié la structure du document, un ou
+  # plusieurs chunks indispensables par rapport aux exercices sont introuvables.
+  # Vérifiez la structure du document par rapport à la version d'origine dans
+  # le dépôt "template" du document (lien au début du fichier README.md).
+
+  expect_true(any(duplicated(rmd_node_label(urchi))))
+  # Un ou plusieurs labels de chunks sont dupliqués
+  # Les labels de chunks doivent absolument être uniques. Vous ne pouvez pas
+  # avoir deux chunks qui portent le même label. Vérifiez et modifiez le label
+  # dupliqué pour respecter cette règle. Comme les chunks et leurs labels sont
+  # imposés dans ce document cadré, cette situation ne devrait pas se produire.
+  # Vous avez peut-être involontairement dupliqué une partie du document ?
+})
+
+test_that("L'entête YAML a-t-il été complété ?", {
+  expect_true(urchi[[1]]$author != "___")
+  expect_true(!grepl("__", urchi[[1]]$author))
+  expect_true(grepl("^[^_]....+", urchi[[1]]$author))
+  # Le nom d'auteur n'est pas complété ou de manière incorrecte dans l'entête
+  # Vous devez indiquer votre nom dans l'entête YAML à la place de "___" et
+  # éliminer les caractères '_' par la même occasion.
+
+  expect_true(grepl("[a-z]", urchi[[1]]$author))
+  # Aucune lettre minuscule n'est trouvée dans le nom d'auteur
+  # Avez-vous bien complété le champ 'author' dans l'entête YAML ?
+  # Vous ne pouvez pas écrire votre nom tout en majuscules. Utilisez une
+  # majuscule en début de nom et de prénom, et des minuscules ensuite.
+
+  expect_true(grepl("[A-Z]", urchi[[1]]$author))
+  # Aucune lettre majuscule n'est trouvée dans le nom d'auteur
+  # Avez-vous bien complété le champ 'author' dans l'entête YAML ?
+  # Vous ne pouvez pas écrire votre nom tout en minuscules. Utilisez une
+  # majuscule en début de nom et de prénom, et des minuscules ensuite.
+})
+
+test_that("Chunk 'import' : importation des données", {
+  expect_true(is_identical_to_ref("import", "names"))
+  # Les colonnes dans le tableau `urchin` importé ne sont pas celles attendues
+  # Votre jeu de données de départ n'est pas correct. Ce test échoue si vous
+  # avez modifié le chunk 'import'.
+  # Vérifiez le chunk 'import' du document par rapport à la version d'origine
+  # dans le dépôt "template" du document (lien au début du fichier README.md).
+})
+
+test_that("Chunk 'headtail' : premières et dernières lignes du tableau 'urchin'",
+  {
+  expect_true(is_identical_to_ref("headtail"))
+  # Le tableau des cinqs premières et des cinqs dernières lignes du tableau
+  # 'urchin' est incorrect.
+  # Vérifiez que vous appliquez la fonction  tabularise$headtail() sur l'objet
+  # 'urchin' ?
+})
+
+test_that("Chunks 'chart1' & 'chart1comment' : graphique hauteur du test vs
+  masse totale", {
+  expect_true(is_identical_to_ref("chart1"))
+  # Le graphique n'est pas réalisé ou n'est pas celui attendu.
+  # Relisez les consignes et vérifiez votre code concernant ce graphique.
+  # Avez-vous bien réalisé un nuage de point ('geom_point()') de la hauteur du
+  # test ('height') en fonction de la masse totale ('weight').
+
+  expect_true(is_identical_to_ref("chart1comment"))
+  # L'interprétation du graphique de la hauteur du test vs masse totale est
+  # (partiellement) fausse.
+  # Vous devez cochez les phrases qui décrivent le graphique d'un 'x' entre les
+  # crochets [] -> [x]. Ensuite, vous devez recompiler la version HTML du
+  # bloc-notes (bouton 'Rendu') sans erreur pour réactualiser les résultats.
+  # Assurez-vous de bien comprendre ce qui est coché ou pas : vous n'aurez plus
+  # cette aide plus tard dans le travail de groupe ou les interrogations !
+})
+
+test_that("Chunks 'chart2' & 'chart2comment' : graphique log(hauteur du test) vs
+  log(masse totale)", {
+  expect_true(is_identical_to_ref("chart2"))
+  # Le graphique n'est pas réalisé ou n'est pas celui attendu
+  # Vérifiez la transformation des données. Vous devez employer la fonction
+  # log() pour les deux variables de ce graphique ('height' et 'weight').
+
+  expect_true(is_identical_to_ref("chart2comment"))
+  # L'interprétation du graphique log(hauteur du test) vs log(masse totale) est
+  # (partiellement) fausse.
+  # Vous devez cochez les phrases qui décrivent le graphique d'un 'x' entre les
+  # crochets [] -> [x]. Ensuite, vous devez recompiler la version HTML du
+  # bloc-notes (bouton 'Rendu') sans erreur pour réactualiser les résultats.
+  # Assurez-vous de bien comprendre ce qui est coché ou pas : vous n'aurez plus
+  # cette aide plus tard dans le travail de groupe ou les interrogations !
+})
+
+test_that("Chunks 'chart3' & 'chart3comment' : graphique masse du test vs masse
+  totale", {
+    expect_true(is_identical_to_ref("chart3"))
+    # Le graphique n'est pas réalisé ou n'est pas celui attendu.
+    # Avez-vous bien réalisé un nuage de point ('geom_point()') de la masse du
+    # test ('test') en fonction de la masse totale ('weight').
+
+    expect_true(is_identical_to_ref("chart3comment"))
+    # L'interprétation du graphique masse du test vs masse totale est
+    # (partiellement) fausse.
+    # Vous devez cochez les phrases qui décrivent le graphique d'un 'x' entre les
+    # crochets [] -> [x]. Ensuite, vous devez recompiler la version HTML du
+    # bloc-notes (bouton 'Rendu') sans erreur pour réactualiser les résultats.
+    # Assurez-vous de bien comprendre ce qui est coché ou pas : vous n'aurez plus
+    # cette aide plus tard dans le travail de groupe ou les interrogations !
+  })
+
+test_that("Chunks 'chart4' & 'chart4comment' : graphique masse des gonades vs
+  diamètre moyen du test", {
+    expect_true(is_identical_to_ref("chart4"))
+    # Le graphique n'est pas réalisé ou n'est pas celui attendu.
+    # Avez-vous bien réalisé un nuage de point ('geom_point()') de la masse des
+    # gonades ('gonads') en fonction du diamètre moyen ('diameter').
+
+    expect_true(is_identical_to_ref("chart4comment"))
+    # L'interprétation du graphique masse des gonades vs  diamètre moyen du test
+    # est (partiellement) fausse.
+    # Vous devez cochez les phrases qui décrivent le graphique d'un 'x' entre les
+    # crochets [] -> [x]. Ensuite, vous devez recompiler la version HTML du
+    # bloc-notes (bouton 'Rendu') sans erreur pour réactualiser les résultats.
+    # Assurez-vous de bien comprendre ce qui est coché ou pas : vous n'aurez plus
+    # cette aide plus tard dans le travail de groupe ou les interrogations !
+  })
+
+test_that("Chunks 'chart5' & 'chart5comment' : graphique masse des gonades vs
+  hauteut du test", {
+    expect_true(is_identical_to_ref("chart5"))
+    # Le graphique n'est pas réalisé ou n'est pas celui attendu.
+    # Avez-vous bien réalisé un nuage de point ('geom_point()') de la masse des
+    # gonades ('gonads') en fonction de la hauteur du test ('height').
+
+    expect_true(is_identical_to_ref("chart5comment"))
+    # L'interprétation du graphique masse des gonades vs hauteut du test est
+    # (partiellement) fausse.
+    # Vous devez cochez les phrases qui décrivent le graphique d'un 'x' entre les
+    # crochets [] -> [x]. Ensuite, vous devez recompiler la version HTML du
+    # bloc-notes (bouton 'Rendu') sans erreur pour réactualiser les résultats.
+    # Assurez-vous de bien comprendre ce qui est coché ou pas : vous n'aurez plus
+    # cette aide plus tard dans le travail de groupe ou les interrogations !
+  })
+
+test_that("Les commentaires sont-ils complétés pour la comparaison entre un script
+  R et un document Quarto ?", {
+  expect_true(!(rmd_select(urchi, by_section(
+    "Comparaison script R et Quarto")) |> as_document() |> grepl(
+      "^- +\\.+ *$", x = _) |> any()))
+  # Vous devez compléter la liste d'observations sous le graphique "Rappels 2 et
+  # 3 en fonction de l'âge" dans vaccination_notebook.qmd. Si le test
+  # échoue, ce n'est pas encore fait.
+})

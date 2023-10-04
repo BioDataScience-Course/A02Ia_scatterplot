@@ -14,3 +14,6 @@ LaTeX: XeLaTeX
 
 AutoAppendNewline: Yes
 StripTrailingWhitespace: Yes
+
+BuildType: Makefile
+MakefilePath: /Users/engels/umons_pro/econum/BioDataScience-Course/sdd_template/A02Ia_scatterplot/tests
