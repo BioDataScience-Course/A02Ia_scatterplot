@@ -16,7 +16,7 @@ test_that("Étape 2 : réalisation de nuages de points", {
   # Le nuage de points de la hauteur en fonction de la masse des oursins en
   # utilisant une transformation `log()` pour les 2 variables est incorrect.
   # Assurez-vous d'employer les variables `height` et `weight`.
-  # Avez-vous réalisé la transformation `log()` sur les deux variables
+  # Avez-vous réalisé la transformation `log()` sur les deux variables ?
 
   expect_true(is_identical_to_ref("chart_origin"))
   # Le nuage de points de la hauteur en fonction de la masse des oursins

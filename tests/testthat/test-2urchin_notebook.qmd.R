@@ -21,7 +21,8 @@ test_that("Le bloc-notes est-il compilé en un fichier final HTML ?", {
 })
 
 test_that("La structure du document est-elle conservée ?", {
-  expect_true(all(c("Introduction et but", "Matériel et méthodes", "Analyses","Description des données", "Comparaison script R et Quarto")
+  expect_true(all(c("Introduction et but", "Matériel et méthodes",
+    "Analyses","Description des données", "Comparaison script R et Quarto")
     %in% (rmd_node_sections(urchi) |> unlist() |> unique())))
   # Les sections (titres) attendues du document ne sont pas toutes présentes
   # Ce test échoue si vous avez modifié la structure du document, un ou
@@ -79,8 +80,7 @@ test_that("Chunk 'import' : importation des données", {
   # dans le dépôt "template" du document (lien au début du fichier README.md).
 })
 
-test_that("Chunk 'headtail' : premières et dernières lignes du tableau 'urchin'",
-  {
+test_that("Chunk 'headtail' : premières et dernières lignes de 'urchin'", {
   expect_true(is_identical_to_ref("headtail"))
   # Le tableau des cinqs premières et des cinqs dernières lignes du tableau
   # 'urchin' est incorrect.
@@ -123,63 +123,59 @@ test_that("Chunks 'chart2' & 'chart2comment' : graphique log(hauteur du test) vs
   # cette aide plus tard dans le travail de groupe ou les interrogations !
 })
 
-test_that("Chunks 'chart3' & 'chart3comment' : graphique masse du test vs masse
-  totale", {
-    expect_true(is_identical_to_ref("chart3"))
-    # Le graphique n'est pas réalisé ou n'est pas celui attendu.
-    # Avez-vous bien réalisé un nuage de point ('geom_point()') de la masse du
-    # test ('test') en fonction de la masse totale ('weight').
+test_that("Chunks 'chart3' & 'chart3comment' : graphique masse du test vs masse totale", {
+  expect_true(is_identical_to_ref("chart3"))
+  # Le graphique n'est pas réalisé ou n'est pas celui attendu.
+  # Avez-vous bien réalisé un nuage de point ('geom_point()') de la masse du
+  # test ('test') en fonction de la masse totale ('weight').
 
-    expect_true(is_identical_to_ref("chart3comment"))
-    # L'interprétation du graphique masse du test vs masse totale est
-    # (partiellement) fausse.
-    # Vous devez cochez les phrases qui décrivent le graphique d'un 'x' entre les
-    # crochets [] -> [x]. Ensuite, vous devez recompiler la version HTML du
-    # bloc-notes (bouton 'Rendu') sans erreur pour réactualiser les résultats.
-    # Assurez-vous de bien comprendre ce qui est coché ou pas : vous n'aurez plus
-    # cette aide plus tard dans le travail de groupe ou les interrogations !
+  expect_true(is_identical_to_ref("chart3comment"))
+  # L'interprétation du graphique masse du test vs masse totale est
+  # (partiellement) fausse.
+  # Vous devez cochez les phrases qui décrivent le graphique d'un 'x' entre les
+  # crochets [] -> [x]. Ensuite, vous devez recompiler la version HTML du
+  # bloc-notes (bouton 'Rendu') sans erreur pour réactualiser les résultats.
+  # Assurez-vous de bien comprendre ce qui est coché ou pas : vous n'aurez plus
+  # cette aide plus tard dans le travail de groupe ou les interrogations !
+})
+
+test_that("Chunks 'chart4' & 'chart4comment' : graphique masse des gonades vs diamètre moyen du test", {
+  expect_true(is_identical_to_ref("chart4"))
+  # Le graphique n'est pas réalisé ou n'est pas celui attendu.
+  # Avez-vous bien réalisé un nuage de point ('geom_point()') de la masse des
+  # gonades ('gonads') en fonction du diamètre moyen ('diameter').
+
+  expect_true(is_identical_to_ref("chart4comment"))
+  # L'interprétation du graphique masse des gonades vs diamètre moyen du test
+  # est (partiellement) fausse.
+  # Vous devez cochez les phrases qui décrivent le graphique d'un 'x' entre les
+  # crochets [] -> [x]. Ensuite, vous devez recompiler la version HTML du
+  # bloc-notes (bouton 'Rendu') sans erreur pour réactualiser les résultats.
+  # Assurez-vous de bien comprendre ce qui est coché ou pas : vous n'aurez plus
+  # cette aide plus tard dans le travail de groupe ou les interrogations !
+})
+
+test_that("Chunks 'chart5' & 'chart5comment' : graphique masse des gonades vs hauteut du test", {
+  expect_true(is_identical_to_ref("chart5"))
+  # Le graphique n'est pas réalisé ou n'est pas celui attendu.
+  # Avez-vous bien réalisé un nuage de point ('geom_point()') de la masse des
+  # gonades ('gonads') en fonction de la masse totale ('weight').
+
+  expect_true(is_identical_to_ref("chart5comment"))
+  # L'interprétation du graphique masse des gonades vs masse totale est
+  # (partiellement) fausse.
+  # Vous devez cochez les phrases qui décrivent le graphique d'un 'x' entre les
+  # crochets [] -> [x]. Ensuite, vous devez recompiler la version HTML du
+  # bloc-notes (bouton 'Rendu') sans erreur pour réactualiser les résultats.
+  # Assurez-vous de bien comprendre ce qui est coché ou pas : vous n'aurez plus
+  # cette aide plus tard dans le travail de groupe ou les interrogations !
   })
 
-test_that("Chunks 'chart4' & 'chart4comment' : graphique masse des gonades vs
-  diamètre moyen du test", {
-    expect_true(is_identical_to_ref("chart4"))
-    # Le graphique n'est pas réalisé ou n'est pas celui attendu.
-    # Avez-vous bien réalisé un nuage de point ('geom_point()') de la masse des
-    # gonades ('gonads') en fonction du diamètre moyen ('diameter').
-
-    expect_true(is_identical_to_ref("chart4comment"))
-    # L'interprétation du graphique masse des gonades vs  diamètre moyen du test
-    # est (partiellement) fausse.
-    # Vous devez cochez les phrases qui décrivent le graphique d'un 'x' entre les
-    # crochets [] -> [x]. Ensuite, vous devez recompiler la version HTML du
-    # bloc-notes (bouton 'Rendu') sans erreur pour réactualiser les résultats.
-    # Assurez-vous de bien comprendre ce qui est coché ou pas : vous n'aurez plus
-    # cette aide plus tard dans le travail de groupe ou les interrogations !
-  })
-
-test_that("Chunks 'chart5' & 'chart5comment' : graphique masse des gonades vs
-  hauteut du test", {
-    expect_true(is_identical_to_ref("chart5"))
-    # Le graphique n'est pas réalisé ou n'est pas celui attendu.
-    # Avez-vous bien réalisé un nuage de point ('geom_point()') de la masse des
-    # gonades ('gonads') en fonction de la hauteur du test ('height').
-
-    expect_true(is_identical_to_ref("chart5comment"))
-    # L'interprétation du graphique masse des gonades vs hauteut du test est
-    # (partiellement) fausse.
-    # Vous devez cochez les phrases qui décrivent le graphique d'un 'x' entre les
-    # crochets [] -> [x]. Ensuite, vous devez recompiler la version HTML du
-    # bloc-notes (bouton 'Rendu') sans erreur pour réactualiser les résultats.
-    # Assurez-vous de bien comprendre ce qui est coché ou pas : vous n'aurez plus
-    # cette aide plus tard dans le travail de groupe ou les interrogations !
-  })
-
-test_that("Les commentaires sont-ils complétés pour la comparaison entre un script
-  R et un document Quarto ?", {
+test_that("Les commentaires sont-ils complétés pour la comparaison entre un script R et un document Quarto ?", {
   expect_true(!(rmd_select(urchi, by_section(
     "Comparaison script R et Quarto")) |> as_document() |> grepl(
       "^- +\\.+ *$", x = _) |> any()))
-  # Vous devez compléter la liste d'observations sous le graphique "Rappels 2 et
-  # 3 en fonction de l'âge" dans vaccination_notebook.qmd. Si le test
-  # échoue, ce n'est pas encore fait.
+  # La comparaison entre script R et document Quarto ne semble pas réalisée
+  # Vous devez remplacer les trois points (...) pas vos comparaisons dans la
+  # liste.
 })

@@ -17,9 +17,7 @@ lang: fr
 
 ## Introduction et but
 
-Deux populations de Paracentrotus lividus (Lamarck, 1816) sont comparées sur base de mesures biométriques. Le premier groupe d'individus est pêché en Bretagne et le second est élevé dans une ferme en Normandie.
-
-L'un des intérêts pour cette espèce d'échinoderme est associé à la gastronomie. En effet, les gonades des oursins sont consommées dans plusieurs cultures.
+Deux populations de *Paracentrotus lividus* (Lamarck, 1816) sont comparées sur base de mesures biométriques. La première est pêchée en Bretagne et la seconde est élevée dans une ferme aquacole en Normandie. L'un des intérêts pour cette espèce d'échinoderme est gastronomique. En effet, les gonades des oursins sont consommées dans plusieurs pays, dont la France et le Japon.
 
 Ce carnet de notes a pour but de visualiser les associations entre les différentes mesures réalisées.
 
@@ -27,14 +25,14 @@ Ce carnet de notes a pour but de visualiser les associations entre les différen
 
 <!--# Dans un bloc-notes, la section matériel et méthodes peut être succincte et renvoyer, par exemple, à un cahier de laboratoire pour les détails, ou à un lien pour des données ouvertes (le DOI est un lien fiable, lorsqu'il existe). Précisez toujours les analyses statistiques et les logiciels utilisés, y compris leurs versions. Attention : RStudio n'est "que" l'éditeur, le logiciel qui fait les calculs est R ! -->
 
-Les données ont été collectées par Grosjean *et al* et sont rendues publiques sous licence GPL-2 via le package [{data.io}](https://www.sciviews.org/data.io/)**.** Les métadonnées (par exemple, une description de chaque colonne du tableau) sont disponibles à partir de la page d'aide du jeu de données `urchin_bio`
+Les données sont rendues publiques sous licence GPL-2 via le package [{data.io}](https://www.sciviews.org/data.io/)**.** Les métadonnées (dont une description de chaque variable du jeu de données) sont disponibles dans la page d'aide du jeu de données `?urchin_bio`.
 
 L'analyse est réalisée avec la [SciViews Box 2023](https://www.sciviews.org/software/svbox/) dans [Saturn Cloud](https://saturncloud.io) (Linux) avec le [logiciel R](https://www.r-project.org) (`r R.version.string`).
 
 ## Analyses
 
 ```{r setup, include=FALSE}
-# This is needed to the SDD test suite, do not use in a "real" project
+# Nécessaire pour les tests SDD, ne pas utiliser dans un "vrai" projet
 if (!"tools:tests" %in% search())
   source(here::here("tests/tools_tests.R"), attach(NULL, name = "tools:tests"))
 
@@ -42,13 +40,13 @@ if (!"tools:tests" %in% search())
 SciViews::R(lang = "fr")
 ```
 
-<!--# Le chunk ci-dessous permet d'importer les données. La fonction `read()` importe le tableau `urchin_bio` depuis le package {data.io}. Ce tableau est ensuite assigné à `urchin`, ce qui signifie qu'il est désormais accessible sous ce nom. La fonction smutate() permet de calculer de nouvelles variables. Les fonctions read() et smutate() seront présentées en détail dans le module 5 du cours. -->
+<!--# Le chunk ci-dessous permet d'importer les données. La fonction `read()` importe le tableau `urchin_bio` depuis le package {data.io}. Ce tableau est ensuite assigné à `urchin`, ce qui signifie qu'il est désormais accessible sous ce nom. La fonction `smutate()` permet de calculer de nouvelles variables. Les fonctions `read()` et `smutate()` seront présentées en détail dans le module 5 du cours. -->
 
 ```{r import, record='RODFS', object='urchin'}
 # Importation des données
 urchin <- read("urchin_bio", package = "data.io")
-# Conversion de la variable `maturity` en variable facteur ordonnée
-# Calcul d'une nouvelle variable nommé `diameter`
+# Conversion de la variable `maturity` en variable facteur ordonné
+# Calcul d'une nouvelle variable nommée `diameter`
 urchin <- smutate(urchin, 
   maturity = factor(maturity, ordered = TRUE),
   diameter = (diameter1 + diameter2)/2)
@@ -64,13 +62,13 @@ urchin <- labelise(urchin,
 
 ### Description des données
 
-<!--% Visualisez les cinq premières et les cinq dernières lignes de `urchin` comme présenté dans le cours en ligne du module 2. -->
+<!--% Visualisez les cinq premières et les cinq dernières lignes de `urchin` comme présenté dans le module 2 du cours en ligne. -->
 
 ```{r headtail, record='RNP', arg='col_keys'}
 tabularise$headtail(___)
 ```
 
-On dénombre 421 observations et 20 variables. Ces variables sont regroupées en 3 groupes. Un premier groupe comprend les variables relatives à la taille des oursins. Le second groupe regroupe les variables associées à la masse et le dernier groupe regroupe des variables qualitatives (le sexe, l'origine, l'index de maturité gonadique).
+On dénombre 421 observations et 20 variables. Ces variables sont de trois types : (1) les variables relatives à la taille des oursins, (2) les variables de masses et enfin (3) les variables qualitatives (sexe, origine, index de maturité gonadique).
 
 <!--% Réalisez un nuage de points de la hauteur en fonction de la masse des oursins. Vous avez déjà réalisé ce graphique dans votre script R (c'est le même qui est demandé ici). -->
 
@@ -79,21 +77,21 @@ chart(data = ___, ___) +
   ___
 ```
 
-<!--% Décrivez le graphique ci-dessus en cochant les phrases correctes. -->
+<!--% Décrivez le graphique ci-dessus en cochant les phrases correctes (rappel : le "test" d'un oursin est son squelette hors piquants et organes masticatoires). -->
 
 ```{r chart1comment, output="asis"}
 select_answer(r"-{
-[] -  La hauteur du test varie proportionnellement avec la masse totale des oursins.
+[] -   La hauteur du test varie proportionnellement avec la masse totale des oursins.
 [] -   La hauteur du test varie avec la masse totale des oursins de manière non linéaire.
 [] -   Il n'y a pas d'association entre la hauteur du test et la masse totale des oursins.
 [] -   Les points se distribuent de manière homogène le long de l'axe des abscisses.
-[] -   Il y a plus de petites valeurs sur l'axe des abcisses.
+[] -   Il y a plus de petites valeurs sur l'axe des abscisses.
 [] -   Il y a plus de grandes valeurs sur l'axe des abscisses.
 [] -   L'étalement des points le long de l'axe des ordonnées est constant.
 [] -   L'étalement des points le long de l'axe des ordonnées est plus grand pour les grandes valeurs.
 [] -   L'étalement des points le long de l'axe des ordonnées est plus grand pour les petites valeurs.
 [] -   Le nuage de points est linéaire.
-[] -   Le nuage de points a une forme logarithmique. 
+[] -   Le nuage de points a une forme logarithmique.
 [] -   Le nuage de points a une forme exponentielle.
 [] -   Les points se distribuent en plusieurs groupes (présence de sous-populations ?)}-")
 
@@ -116,8 +114,11 @@ select_answer(r"-{
 [] -   Le nuage de points avec variables transformées est linéarisé.
 [] -   Le nuage de points avec variables transformées n'est pas linéarisé.
 [] -   Les points se distribuent de manière homogène le long de l'axe des abscisses.
-[] -   Il y a plus de petites valeurs sur l'axe des abcisses.
-[] -   Il y a plus de grandes valeurs sur l'axe des abscisses.}-")
+[] -   Il y a plus de petites valeurs sur l'axe des abscisses.
+[] -   Il y a plus de grandes valeurs sur l'axe des abscisses.
+[] -   L'étalement des points le long de l'axe des ordonnées est constant.
+[] -   L'étalement des points le long de l'axe des ordonnées est plus grand pour les grandes valeurs.
+[] -   L'étalement des points le long de l'axe des ordonnées est plus grand pour les petites valeurs.}-")
 
 ```
 
@@ -136,13 +137,13 @@ select_answer(r"-{
 [] -   À masse totale égale, les oursins pêchés ont une masse du test plus importante que les oursins élevés dans une ferme aquacole.
 [] -   À masse totale égale, les oursins pêchés ont une masse du test plus faible que les oursins élevé dans une ferme aquacole.
 [] -   Le nuage de points est linéaire.
-[] -   Le nuage de points a une forme logarithmique. 
+[] -   Le nuage de points a une forme logarithmique.
 [] -   Le nuage de points a une forme exponentielle.
 [] -   Il n’y a pas d’association entre les variables.
 [] -   La répartition des points est homogène entre les deux groupes.
-[] -   Les points se distribuent en deux groupes. 
+[] -   Les points se distribuent en deux groupes.
 [] -   Quelques individus plus lourds sont présents parmi les oursins d’élevage.
-[] -   Quelques individus plus lourds sont présents parmi les oursins pêches.}-")
+[] -   Quelques individus plus lourds sont présents parmi les oursins pêchés.}-")
 ```
 
 <!--% Réalisez un nuage de points de la masse des gonades en fonction du diamètre moyen des oursins en ajoutant de la couleur pour préciser l'index de maturité gonadique l'origine. -->
@@ -157,17 +158,17 @@ chart(data = ___, ___) +
 ```{r chart4comment, output='asis'}
 select_answer(r"-{ 
 [] -   Le nuage de points est linéaire.
-[] -   Le nuage de points a une forme logarithmique. 
+[] -   Le nuage de points a une forme logarithmique.
 [] -   Le nuage de points a une forme exponentielle.
 [] -   Il n’y a pas d’association entre les variables.
 [] -   L’ensemble des individus avec un index de maturité gonadique nulle ont une masse des gonades nulle.
-[] -   La majorité des individus avec un index de maturité gonadique nulle ont une masse des gonades  entre 0 et 1 gramme de gonades.
-[] -   Les trois groupes sont bien séparés selon l’indice de maturité gonadique.
-[] -   Les trois groupes sont homogènes selon l’indice de maturité gonadique.
+[] -   La majorité des individus avec un index de maturité gonadique nulle ont une masse des gonades entre 0 et 1 gramme de gonades.
+[] -   L'indice de maturité gonadique sépare les données en trois sous-groupes.
+[] -   L'indice de maturité gonadique ne sépare pas les données en trois sous-groupes.
 [] -   Les individus avec un index de maturité gonadique de 1 ou 2 ont un diamètre supérieur à 20 mm.}-")
 ```
 
-<!--% Réalisez un nuage de points de la masse des gonades en fonction de la hauteur du test en ajoutant de la couleur pour préciser le sexe. -->
+<!--% Réalisez un nuage de points de la masse des gonades en fonction de la masse totale en utilisant la couleur pour préciser le sexe. -->
 
 ```{r chart5, record='RNSTR', arg='mapping,labels'}
 chart(data = ___, ___) +
@@ -178,17 +179,18 @@ chart(data = ___, ___) +
 
 ```{r chart5comment, output='asis'}
 select_answer(r"-{ 
-[] -   Les individus dont le sexe n’est pas identifié ont pour la majorité un indice gonadique nulle. Ce lien est logique vu que le sexe est déterminé par inspection visuel des gonades.
-[] -  Les individus dont le sexe n’est pas identifié ont pour la majorité un indice gonadique de 1 ou de 2. Ce lien est logique vu que le sexe est déterminé par inspection visuel des gonades.
+[] -   Les individus dont le sexe n’est pas identifié ont, pour la majorité, une masse gonadique nulle ou très faible.
+[] -   Les individus dont le sexe n’est pas identifié ont pour la majorité une masse gonadique importante.
 [] -   Les mâles se différencient des femelles selon les deux variables étudiées.
 [] -   Les deux variables employées ne permettent pas de différencier les mâles des femelles.
-[] -   Les individus dont le sexe n'est pas déterminé ont des masses de gonades plus importantes que les individus dont le sexe est déterminé.
-[] -   Les individus dont le sexe n'est pas déterminé ont des masses de gonades plus faibles que les individus dont le sexe est déterminé.}-")
+[] -   À masse égale, les mâles ont des masses de gonades plus importantes que les femelles.
+[] -   À masse égale, les femelles ont des masses de gonades plus importantes que les mâles.
+[] - À masse égale, la masse des gonades est équivalente entre mâles et femelles.}-")
 ```
 
 ## Comparaison script R et Quarto
 
-<!--%  Présentez entre 3 et 5 éléments qui différencient un script R et un document Quarto en remplaçant les trois points dans les listes ci-dessous. -->
+<!--% Indiquez entre 3 et 5 éléments qui différencient un script R et un document Quarto en remplaçant les trois points dans la liste ci-dessous. -->
 
 -   ...
 
