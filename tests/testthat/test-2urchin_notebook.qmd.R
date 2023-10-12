@@ -39,7 +39,7 @@ test_that("La structure du document est-elle conservée ?", {
   # Ce test échoue si vous avez modifié la structure du document, un ou
   # plusieurs chunks indispensables par rapport aux exercices sont introuvables.
   # Vérifiez la structure du document par rapport à la version d'origine dans
-  # le dépôt "template" du document (lien au début du fichier README.md).
+  # .urchin_notebook.qmd.original.
 
   expect_true(any(duplicated(rmd_node_label(urchi))))
   # Un ou plusieurs labels de chunks sont dupliqués
@@ -91,6 +91,7 @@ test_that("Chunk 'headtail' : premières et dernières lignes de 'urchin'", {
 test_that("Chunks 'chart1' & 'chart1comment' : graphique hauteur du test vs
   masse totale", {
   expect_true(is_identical_to_ref("chart1"))
+  # TODO: problem with tests of chart objects (Mac <-> Linux?)
   # Le graphique n'est pas réalisé ou n'est pas celui attendu.
   # Relisez les consignes et vérifiez votre code concernant ce graphique.
   # Avez-vous bien réalisé un nuage de point ('geom_point()') de la hauteur du
@@ -109,6 +110,7 @@ test_that("Chunks 'chart1' & 'chart1comment' : graphique hauteur du test vs
 test_that("Chunks 'chart2' & 'chart2comment' : graphique log(hauteur du test) vs
   log(masse totale)", {
   expect_true(is_identical_to_ref("chart2"))
+  # TODO: problem with tests of chart objects (Mac <-> Linux?)
   # Le graphique n'est pas réalisé ou n'est pas celui attendu
   # Vérifiez la transformation des données. Vous devez employer la fonction
   # log() pour les deux variables de ce graphique ('height' et 'weight').
@@ -125,6 +127,7 @@ test_that("Chunks 'chart2' & 'chart2comment' : graphique log(hauteur du test) vs
 
 test_that("Chunks 'chart3' & 'chart3comment' : graphique masse du test vs masse totale", {
   expect_true(is_identical_to_ref("chart3"))
+  # TODO: problem with tests of chart objects (Mac <-> Linux?)
   # Le graphique n'est pas réalisé ou n'est pas celui attendu.
   # Avez-vous bien réalisé un nuage de point ('geom_point()') de la masse du
   # test ('test') en fonction de la masse totale ('weight').
@@ -141,6 +144,7 @@ test_that("Chunks 'chart3' & 'chart3comment' : graphique masse du test vs masse 
 
 test_that("Chunks 'chart4' & 'chart4comment' : graphique masse des gonades vs diamètre moyen du test", {
   expect_true(is_identical_to_ref("chart4"))
+  # TODO: problem with tests of chart objects (Mac <-> Linux?)
   # Le graphique n'est pas réalisé ou n'est pas celui attendu.
   # Avez-vous bien réalisé un nuage de point ('geom_point()') de la masse des
   # gonades ('gonads') en fonction du diamètre moyen ('diameter').
@@ -157,6 +161,7 @@ test_that("Chunks 'chart4' & 'chart4comment' : graphique masse des gonades vs di
 
 test_that("Chunks 'chart5' & 'chart5comment' : graphique masse des gonades vs hauteut du test", {
   expect_true(is_identical_to_ref("chart5"))
+  # TODO: problem with tests of chart objects (Mac <-> Linux?)
   # Le graphique n'est pas réalisé ou n'est pas celui attendu.
   # Avez-vous bien réalisé un nuage de point ('geom_point()') de la masse des
   # gonades ('gonads') en fonction de la masse totale ('weight').
